@@ -1,4 +1,4 @@
-# ✨ Really AI ✨
+# ✨ really.ai ✨
 
 This project is a functional clone of the popular code generation tool [bolt.new](https://bolt.new), built with Next.js and Convex. It serves as a portfolio piece to showcase the implementation of industry-standard web development practices and a deep understanding of modern frontend and backend technologies.
 
