@@ -69,8 +69,16 @@ This project demonstrates a strong understanding of the following concepts and t
     *   `NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY`: Get this from the Google API Console.
     *   `NEXT_PUBLIC_GEMINI_API_KEY`: Get this from the Google AI Platform.
 
-4.  **Run the development server:**
+4.  **Run the development servers:**
 
+    You will need to run both the frontend and backend development servers in separate terminals.
+
+    **Terminal 1: Run the Convex backend server:**
+    ```bash
+    npx convex dev
+    ```
+
+    **Terminal 2: Run the Next.js frontend server:**
     ```bash
     npm run dev
     ```
