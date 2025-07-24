@@ -156,6 +156,7 @@ function ChatView() {
               className="outline-none bg-transparent w-full h-32 max-h-56 resize-none"
               onChange={(event) => setUserInput(event.target.value)}
               value={userInput}
+              suppressHydrationWarning={true}
             />
             {userInput && (
               <ArrowRight

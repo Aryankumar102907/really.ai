@@ -53,6 +53,7 @@ const Hero = () => {
             placeholder={Lookup.INPUT_PLACEHOLDER}
             onChange={(event) => setUserInput(event.target.value)}
             className="outline-none bg-transparent w-full h-32 max-h-56 resize-none"
+            suppressHydrationWarning={true}
           />
           {userInput && (
             <ArrowRight

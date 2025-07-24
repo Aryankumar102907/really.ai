@@ -54,29 +54,40 @@ const CodeView = () => {
 
   const GenerateAiCode = async () => {
     setLoading(true);
-    const PROMPT = JSON.stringify(messages) + "" + Prompt.CODE_GEN_PROMPT;
-    const result = await axios.post("/api/gen-ai-code", {
-      prompt: PROMPT,
-    });
-    console.log(result.data);
-    const aiResp = result.data;
+    try {
+      const PROMPT = JSON.stringify(messages) + "" + Prompt.CODE_GEN_PROMPT;
+      const result = await axios.post("/api/gen-ai-code", {
+        prompt: PROMPT,
+      });
+      console.log(result.data);
+      const aiResp = result.data;
 
-    const mergedFiles = { ...Lookup.DEFAULT_FILE, ...aiResp?.files };
-    setFiles(mergedFiles);
-    await UpdateFiles({
-      workspaceId: id,
-      files: aiResp?.files,
-    });
+      // Ensure aiResp.files exists and is an object, fallback to empty object
+      const aiFiles = aiResp?.files || {};
+      
+      const mergedFiles = { ...Lookup.DEFAULT_FILE, ...aiFiles };
+      setFiles(mergedFiles);
+      
+      // Always call UpdateFiles with files data (even if empty)
+      await UpdateFiles({
+        workspaceId: id,
+        files: aiFiles,
+      });
 
-    const token =
-      Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
-    // Update tokens to database
-    await UpdateTokens({
-      userId: userDetail?._id,
-      token: token,
-    });
-    setActiveTab("code");
-    setLoading(false);
+      const token =
+        Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
+      // Update tokens to database
+      await UpdateTokens({
+        userId: userDetail?._id,
+        token: token,
+      });
+      setActiveTab("code");
+    } catch (error) {
+      console.error('Error generating AI code:', error);
+      // Handle error appropriately - you might want to show an error message to the user
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="relative">
